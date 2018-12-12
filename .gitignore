@@ -2,8 +2,10 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 mvn
+mvnw
 mvnw.cmd
 .attach*
+.mvn/
 
 ### STS ###
 .apt_generated
