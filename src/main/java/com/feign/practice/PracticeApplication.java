@@ -31,18 +31,18 @@ annotate an interface while the actual implementation will be provisioned at run
         SpringApplication.run(PracticeApplication.class, args);
 
     }
+
     @Bean
-    @Primary
-    @Profile("debug")
-    public EurekaInstanceConfigBean eurekaInstanceConfigBean(InetUtils inetUtils){
-        EurekaInstanceConfigBean b = new EurekaInstanceConfigBean(inetUtils);
+    @Profile("develop")
+    public EurekaInstanceConfigBean eurekaInstanceConfigBeanAWS(InetUtils inetUtils){
+        EurekaInstanceConfigBean bean = new EurekaInstanceConfigBean(inetUtils);
         AmazonInfo info = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
         logger.debug(info.getName().toString());
-        b.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
-        b.setIpAddress(info.get(AmazonInfo.MetaDataKey.localIpv4));
-        b.setNonSecurePort(port);
-        b.setDataCenterInfo(info);
-        return b;
+        bean.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
+        bean.setIpAddress(info.get(AmazonInfo.MetaDataKey.localIpv4));
+        bean.setNonSecurePort(port);
+        bean.setDataCenterInfo(info);
+        return bean;
     }
 
 }
