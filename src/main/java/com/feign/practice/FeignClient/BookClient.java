@@ -13,6 +13,15 @@ import java.util.List;
         fallbackFactory = BookHystrixFallback.class, primary = false) //annotation the String value ("stores" above) is an arbitrary client name,
 public interface BookClient {
 
+    @GetMapping(value = "/eurekas")
+    String getDataEureka();
+
+    @GetMapping(value = "/eurekas/getapplications")
+    String getApplicationsFromEureka();
+
+    @GetMapping(value = "/eurekas/instances{instanceId}", produces = "application/json")
+    String getDataFromEureka(@PathVariable("instanceId") String instanceId);
+
     @GetMapping(value =  "/books")
     List<Book> getBooks();
 
