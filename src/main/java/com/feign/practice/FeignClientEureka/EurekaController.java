@@ -1,6 +1,6 @@
 package com.feign.practice.FeignClientEureka;
 
-import com.feign.practice.ResourceNotFoundException;
+import com.feign.practice.ErrorException.ResourceNotFoundException;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.netflix.discovery.shared.Application;
