@@ -1,12 +1,21 @@
 package com.feign.practice;
 
+import com.netflix.appinfo.AmazonInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.commons.util.InetUtils;
+import org.springframework.cloud.netflix.eureka.EurekaInstanceConfigBean;
 import org.springframework.cloud.openfeign.EnableFeignClients;
-import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.context.annotation.*;
 
-@SpringBootApplication
+//@SpringBootApplication
+@Configuration
+@EnableAutoConfiguration
+@ComponentScan
 @EnableFeignClients
 @EnableDiscoveryClient
 public class PracticeApplication {
@@ -15,7 +24,28 @@ public class PracticeApplication {
 Feign aims at simplifying HTTP API clients. Simply put, the developers needs only to declare and
 annotate an interface while the actual implementation will be provisioned at runtime.
  */
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
+    @Value("${server.port:8081}")
+    private int port;
+
     public static void main(String[] args) {
         SpringApplication.run(PracticeApplication.class, args);
+
     }
+    @Bean
+    @Primary
+    @Profile("debug")
+    public EurekaInstanceConfigBean eurekaInstanceConfigBean(InetUtils inetUtils){
+        EurekaInstanceConfigBean b = new EurekaInstanceConfigBean(inetUtils);
+        AmazonInfo info = AmazonInfo.Builder.newBuilder().autoBuild("eureka");
+        logger.debug(info.getName().toString());
+        b.setHostname(info.get(AmazonInfo.MetaDataKey.publicHostname));
+        b.setIpAddress(info.get(AmazonInfo.MetaDataKey.localIpv4));
+        b.setNonSecurePort(port);
+        b.setDataCenterInfo(info);
+        return b;
+    }
+
 }
