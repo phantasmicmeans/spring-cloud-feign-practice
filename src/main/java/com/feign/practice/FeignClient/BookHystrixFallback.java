@@ -14,21 +14,6 @@ public class BookHystrixFallback implements FallbackFactory<BookClient> {
     @Override
     public BookClient create(Throwable throwable) {
         return new BookClient() {
-            @Override
-            public String getDataEureka() {
-                return null;
-            }
-
-            @Override
-            public String getApplicationsFromEureka() {
-                return null;
-            }
-
-            @Override
-            public String getDataFromEureka(String instanceId) {
-                return null;
-            }
-
             //fallbackMethod for BookClient
             @Override
             public List<Book> getBooks() {
