@@ -11,7 +11,7 @@ public class EurekaHystrixFallback implements FallbackFactory<ClientEureka> {
         return new ClientEureka() {
 
             @Override
-            public ResponseEntity getDetailFromEureka() {
+            public ResponseEntity getDetailMyClientFromEureka() {
                 return null;
             }
 
@@ -21,12 +21,12 @@ public class EurekaHystrixFallback implements FallbackFactory<ClientEureka> {
             }
 
             @Override
-            public ResponseEntity getApplicationWithApplicationName(String applicationName) {
+            public ResponseEntity getApplicationFromEureka(String applicationName) {
                 return null;
             }
 
             @Override
-            public ResponseEntity getInstanceDetailFromEureka(String instanceId) {
+            public ResponseEntity getApplicationDetailFromEureka(String applicationName) {
                 return null;
             }
 
