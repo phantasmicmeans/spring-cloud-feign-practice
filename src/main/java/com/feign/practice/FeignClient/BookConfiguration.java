@@ -25,16 +25,8 @@ public class BookConfiguration {
         return new feign.codec.Encoder.Default();
     }
 
-//    @Bean
-//    public Logger feignErrorLogger(){
-//        return new feign.Logger.ErrorLogger();
-//    }
-
     //If we create both @Configuration bean and configuration properties in application.yml,
     //configuration properties will win. It will override @Configuration values. But if you want to change the priority to @Configuration, you can change feign.client.default-to-properties to false.
-
-
-
     /*
     Spring Cloud creates a new ensemble as an ApplicationContext on demand for each named client using FeignClientsConfiguration.
     This contains (amongst other things) an feign.Decoder, a feign.Encoder, and a feign.Contract.
